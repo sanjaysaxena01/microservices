@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrmimage02
+spec:
+  selector:
+    matchLabels:
+      app: vrmimage02
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vrmimage02
+    spec:
+      containers:
+      - name: vrmimage02
+        image: springbootcontainerregistry.azurecr.io/vrmimage02:latest
+        ports:
+        - containerPort: 8080     
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: vrmimage02
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 8080
+    selector:
+        app: vrmimage02
